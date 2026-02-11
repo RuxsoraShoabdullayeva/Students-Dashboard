@@ -35,10 +35,7 @@
         </div>
 
         <nav class="menu" aria-label="Dashboard sections">
-          <button class="menu-link active" data-target="dashboard">
-            <i class="fa-solid fa-chart-line"></i>
-            <span data-i18n="menuDashboard">Dashboard</span>
-          </button>
+          
           <button class="menu-link" data-target="tasks">
             <i class="fa-solid fa-list-check"></i>
             <span data-i18n="menuTasks">Tasks</span>
@@ -107,47 +104,6 @@
 
       <section id="dashboardSection" class="content-section active">
         <div class="section-grid">
-          <article class="card metric-card">
-            <div class="card-title-row">
-              <h2 data-i18n="academicOverview">Academic Overview</h2>
-              <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-            <div class="metric-row">
-              <div>
-                <p class="muted" data-i18n="currentGpa">Current GPA</p>
-                <h3 id="gpaValue">3.82</h3>
-              </div>
-              <div>
-                <p class="muted" data-i18n="semesterGoal">Semester Goal</p>
-                <h3>3.95</h3>
-              </div>
-            </div>
-            <div>
-              <p class="muted" data-i18n="upcomingExam">Upcoming Exam</p>
-              <p id="examCountdown" class="countdown">Calculus Midterm in 0 days</p>
-            </div>
-          </article>
-
-          <article class="card subject-card">
-            <div class="card-title-row">
-              <h2 data-i18n="subjectProgress">Subject Progress</h2>
-              <i class="fa-solid fa-book-open-reader"></i>
-            </div>
-            <div id="subjectProgressList"></div>
-          </article>
-
-          <article class="card attendance-card">
-            <div class="card-title-row">
-              <h2 data-i18n="attendance">Attendance</h2>
-              <i class="fa-solid fa-user-check"></i>
-            </div>
-            <div class="attendance-wrap">
-              <div class="circle-progress" id="attendanceCircle" role="img" aria-label="Attendance progress">
-                <span id="attendancePercent">91%</span>
-              </div>
-              <p class="muted" data-i18n="attendanceTip">Keep attendance above 90% for scholarship safety.</p>
-            </div>
-          </article>
         </div>
       </section>
 
