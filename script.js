@@ -365,9 +365,8 @@
   };
 
   const DEFAULT_PROFILE = {
-    name: "username",
-    avatar:
-      "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3383.jpg?semt=ais_user_personalization&w=740&q=80"
+    name: "User",
+    avatar: "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"
   };
 
   const DEFAULT_POMODORO = {
@@ -1458,10 +1457,18 @@
   }
 
   function migrateProfile(profile) {
+    const legacyDefaultNames = new Set(["Alex Morgan", "username"]);
+    const legacyDefaultAvatars = new Set([
+      "https://i.pravatar.cc/120?img=32",
+      "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3383.jpg?semt=ais_user_personalization&w=740&q=80"
+    ]);
+
+    const rawName = typeof profile?.name === "string" ? profile.name.trim() : "";
+    const rawAvatar = typeof profile?.avatar === "string" ? profile.avatar : "";
+
     return {
-      name: typeof profile?.name === "string" && profile.name.trim() ? profile.name.trim() : DEFAULT_PROFILE.name,
-      avatar:
-        typeof profile?.avatar === "string" && profile.avatar.trim() ? profile.avatar : DEFAULT_PROFILE.avatar
+      name: rawName && !legacyDefaultNames.has(rawName) ? rawName : DEFAULT_PROFILE.name,
+      avatar: rawAvatar && !legacyDefaultAvatars.has(rawAvatar) ? rawAvatar : DEFAULT_PROFILE.avatar
     };
   }
 
