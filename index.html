@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Life Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div>
+        <div class="profile-card">
+          <img id="studentAvatar" src="https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3383.jpg?semt=ais_user_personalization&w=740&q=80" alt="Student avatar" />
+          <div>
+            <p class="eyebrow" data-i18n="studentRole">Student</p>
+            <h2 id="studentNameDisplay">username</h2>
+          </div>
+        </div>
+
+        <div class="profile-actions">
+          <button class="ghost-btn full-width" id="editNameBtn">
+            <i class="fa-regular fa-pen-to-square"></i>
+            <span data-i18n="editName">Edit Name</span>
+          </button>
+          <input id="avatarInput" type="file" accept="image/*" hidden />
+          <button class="ghost-btn full-width" id="changeAvatarBtn">
+            <i class="fa-regular fa-image"></i>
+            <span data-i18n="changePhoto">Change Photo</span>
+          </button>
+        </div>
+
+        <nav class="menu" aria-label="Dashboard sections">
+          
+          <button class="menu-link" data-target="tasks">
+            <i class="fa-solid fa-list-check"></i>
+            <span data-i18n="menuTasks">Tasks</span>
+            <span id="taskDeadlineBadge" class="menu-badge">0</span>
+          </button>
+          <button class="menu-link" data-target="schedule">
+            <i class="fa-regular fa-calendar"></i>
+            <span data-i18n="menuSchedule">Schedule</span>
+          </button>
+          <button class="menu-link" data-target="goals">
+            <i class="fa-solid fa-bullseye"></i>
+            <span data-i18n="menuGoals">Goals</span>
+          </button>
+          <button class="menu-link" data-target="notes">
+            <i class="fa-regular fa-note-sticky"></i>
+            <span data-i18n="menuNotes">Notes</span>
+          </button>
+          <button class="menu-link" data-target="wellbeing">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span data-i18n="menuWellbeing">Wellbeing</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <label class="lang-switch" for="languageSelect">
+          <span>
+            <i class="fa-solid fa-language"></i>
+            <span data-i18n="language">Language</span>
+          </span>
+          <select id="languageSelect">
+            <option value="en">EN</option>
+            <option value="ru">RU</option>
+            <option value="uz">UZ</option>
+          </select>
+        </label>
+
+        <label class="theme-switch" for="themeToggle">
+          <span>
+            <i class="fa-regular fa-moon"></i>
+            <span data-i18n="darkMode">Dark Mode</span>
+          </span>
+          <input id="themeToggle" type="checkbox" />
+        </label>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar card">
+        <div>
+          <p class="eyebrow" data-i18n="productivityHub">Productivity Hub</p>
+          <h1 id="welcomeMessage">Welcome back, username</h1>
+          <p id="quoteText" class="quote"></p>
+        </div>
+        <div class="topbar-stats">
+          <article class="mini-stat">
+            <p data-i18n="todayDoneTasks">Today's Done Tasks</p>
+            <h3 id="todayDoneCount">0</h3>
+          </article>
+          <article class="mini-stat">
+            <p data-i18n="deadlinesIn2Days">Deadlines in 2 Days</p>
+            <h3 id="urgentTaskCount">0</h3>
+          </article>
+        </div>
+      </header>
+
+      <section id="dashboardSection" class="content-section active">
+        <div class="section-grid two-col">
+          <article class="card">
+            <div class="card-title-row">
+              <h2>Tezkor amallar</h2>
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <p class="muted">Kerakli bo'limga bir bosishda o'ting.</p>
+            <div class="home-actions">
+              <button id="homeOpenTaskBtn" class="primary-btn">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Vazifa qo'shish</span>
+              </button>
+              <button id="homeOpenSessionBtn" class="ghost-btn">
+                <i class="fa-regular fa-calendar"></i>
+                <span>Session qo'shish</span>
+              </button>
+              <button id="homeOpenNoteBtn" class="ghost-btn">
+                <i class="fa-regular fa-note-sticky"></i>
+                <span>Eslatmaga o'tish</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title-row">
+              <h3>Qanday boshlash</h3>
+              <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <ul class="home-guide-list">
+              <li>1. Ism va rasmni moslang.</li>
+              <li>2. Vazifalarni kiriting va deadline qo'ying.</li>
+              <li>3. Haftalik session jadvalini to'ldiring.</li>
+              <li>4. Pomodoro bilan fokusda ishlang.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="tasksSection" class="content-section">
+        <div class="section-header-row">
+          <h2 data-i18n="taskManager">Task Manager</h2>
+          <button class="primary-btn" id="openTaskModalBtn">
+            <i class="fa-solid fa-plus"></i>
+            <span data-i18n="addTask">Add Task</span>
+          </button>
+        </div>
+
+        <div class="kanban-board">
+          <article class="kanban-column">
+            <div class="kanban-title"><span data-i18n="statusTodo">To Do</span> <span id="todoCount">0</span></div>
+            <div class="kanban-list" data-status="todo" id="todoList"></div>
+          </article>
+          <article class="kanban-column">
+            <div class="kanban-title"><span data-i18n="statusInProgress">In Progress</span> <span id="inprogressCount">0</span></div>
+            <div class="kanban-list" data-status="inprogress" id="inprogressList"></div>
+          </article>
+          <article class="kanban-column">
+            <div class="kanban-title"><span data-i18n="statusDone">Done</span> <span id="doneCount">0</span></div>
+            <div class="kanban-list" data-status="done" id="doneList"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="scheduleSection" class="content-section">
+        <div class="section-header-row">
+          <h2 data-i18n="schedulePlanner">Schedule / Study Planner</h2>
+          <button class="primary-btn" id="openSessionModalBtn">
+            <i class="fa-solid fa-plus"></i>
+            <span data-i18n="addStudySession">Add Study Session</span>
+          </button>
+        </div>
+
+        <div class="section-grid schedule-grid">
+          <article class="card">
+            <div class="card-title-row">
+              <h3 data-i18n="weeklyTimetable">Weekly Timetable</h3>
+              <i class="fa-solid fa-table-cells-large"></i>
+            </div>
+            <div id="timetableGrid" class="timetable-grid"></div>
+          </article>
+
+          <article class="card pomodoro-card">
+            <div class="card-title-row">
+              <h3 data-i18n="pomodoroTimer">Pomodoro Timer</h3>
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <p class="muted" data-i18n="pomodoroDesc">Focus for 25 minutes. Take a short break after each cycle.</p>
+            <div id="pomodoroDisplay" class="pomodoro-display">25:00</div>
+            <div class="button-row">
+              <button id="startPomodoroBtn" class="primary-btn compact" data-i18n="start">Start</button>
+              <button id="pausePomodoroBtn" class="ghost-btn compact" data-i18n="pause">Pause</button>
+              <button id="resetPomodoroBtn" class="ghost-btn compact" data-i18n="reset">Reset</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="goalsSection" class="content-section">
+        <div class="section-header-row">
+          <h2 data-i18n="goalsTracker">Goals Tracker</h2>
+          <button class="primary-btn" id="openGoalModalBtn">
+            <i class="fa-solid fa-plus"></i>
+            <span data-i18n="addGoal">Add Goal</span>
+          </button>
+        </div>
+
+        <div class="section-grid two-col">
+          <article class="card">
+            <div class="card-title-row">
+              <h3 data-i18n="shortTermGoals">Short-term Goals</h3>
+              <i class="fa-solid fa-flag-checkered"></i>
+            </div>
+            <div id="shortGoalList" class="goal-list"></div>
+          </article>
+          <article class="card">
+            <div class="card-title-row">
+              <h3 data-i18n="longTermGoals">Long-term Goals</h3>
+              <i class="fa-solid fa-road"></i>
+            </div>
+            <div id="longGoalList" class="goal-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="notesSection" class="content-section">
+        <div class="section-header-row">
+          <h2 data-i18n="notesResources">Notes & Resources</h2>
+        </div>
+
+        <div class="section-grid notes-grid">
+          <article class="card">
+            <div class="card-title-row">
+              <h3 data-i18n="quickNote">Quick Note</h3>
+              <i class="fa-regular fa-pen-to-square"></i>
+            </div>
+            <textarea id="noteInput" data-i18n-placeholder="quickNotePlaceholder" placeholder="Write a quick note about lecture, link, or revision point..."></textarea>
+            <button id="addNoteBtn" class="primary-btn" data-i18n="saveNote">Save Note</button>
+          </article>
+          <article class="card">
+            <div class="card-title-row">
+              <h3 data-i18n="savedNotes">Saved Notes</h3>
+              <i class="fa-solid fa-box-archive"></i>
+            </div>
+            <div id="notesList" class="notes-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="wellbeingSection" class="content-section">
+        <div class="section-header-row">
+          <h2 data-i18n="wellbeingTracker">Wellbeing Tracker</h2>
+        </div>
+
+        <div class="section-grid wellbeing-grid">
+          <article class="card">
+            <div class="card-title-row">
+              <h3 data-i18n="mood">Mood</h3>
+              <i class="fa-regular fa-face-smile"></i>
+            </div>
+            <div id="moodButtons" class="mood-buttons">
+              <button class="mood-btn" data-mood="😄">😄</button>
+              <button class="mood-btn" data-mood="🙂">🙂</button>
+              <button class="mood-btn" data-mood="😐">😐</button>
+              <button class="mood-btn" data-mood="😓">😓</button>
+              <button class="mood-btn" data-mood="😴">😴</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title-row">
+              <h3 data-i18n="hydration">Hydration</h3>
+              <i class="fa-solid fa-glass-water"></i>
+            </div>
+            <div class="counter-wrap">
+              <button id="decreaseWaterBtn" class="ghost-btn compact">-</button>
+              <span id="waterCount">0</span>
+              <button id="increaseWaterBtn" class="ghost-btn compact">+</button>
+            </div>
+            <p class="muted" data-i18n="waterToday">Glasses of water today</p>
+          </article>
+
+          <article class="card">
+            <div class="card-title-row">
+              <h3 data-i18n="sleepHours">Sleep Hours</h3>
+              <i class="fa-regular fa-moon"></i>
+            </div>
+            <input id="sleepInput" type="number" min="0" max="14" step="0.5" data-i18n-placeholder="sleepPlaceholder" placeholder="Enter hours slept" />
+            <button id="saveSleepBtn" class="primary-btn" data-i18n="saveSleep">Save Sleep</button>
+          </article>
+
+          <article class="card">
+            <div class="card-title-row">
+              <h3 data-i18n="dailySummary">Daily Summary</h3>
+              <i class="fa-solid fa-chart-simple"></i>
+            </div>
+            <p id="dailySummary" class="summary-text"></p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="taskModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="close-modal" data-close-modal="taskModal">&times;</button>
+      <h3 data-i18n="modalAddTask">Add New Task</h3>
+      <form id="taskForm" class="modal-form">
+        <input id="taskTitleInput" type="text" data-i18n-placeholder="taskTitlePlaceholder" placeholder="Task title" required />
+        <input id="taskSubjectInput" type="text" data-i18n-placeholder="taskSubjectPlaceholder" placeholder="Subject name" required />
+        <input id="taskDeadlineInput" type="date" required />
+        <button type="submit" class="primary-btn" data-i18n="saveTask">Save Task</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="goalModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="close-modal" data-close-modal="goalModal">&times;</button>
+      <h3 data-i18n="modalAddGoal">Add New Goal</h3>
+      <form id="goalForm" class="modal-form">
+        <input id="goalTitleInput" type="text" data-i18n-placeholder="goalTitlePlaceholder" placeholder="Goal title" required />
+        <select id="goalTypeInput" required>
+          <option value="short" data-i18n="shortTermOption">Short-term</option>
+          <option value="long" data-i18n="longTermOption">Long-term</option>
+        </select>
+        <input id="goalProgressInput" type="number" min="0" max="100" data-i18n-placeholder="goalProgressPlaceholder" placeholder="Progress (%)" required />
+        <button type="submit" class="primary-btn" data-i18n="saveGoal">Save Goal</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="sessionModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="close-modal" data-close-modal="sessionModal">&times;</button>
+      <h3 data-i18n="modalAddSession">Add Study Session</h3>
+      <form id="sessionForm" class="modal-form">
+        <input id="sessionTopicInput" type="text" data-i18n-placeholder="sessionTopicPlaceholder" placeholder="Topic / Subject" required />
+        <select id="sessionDayInput" required></select>
+        <select id="sessionTimeInput" required></select>
+        <input id="sessionDurationInput" type="number" min="15" max="180" step="5" data-i18n-placeholder="sessionDurationPlaceholder" placeholder="Duration (min)" required />
+        <button type="submit" class="primary-btn" data-i18n="saveSession">Save Session</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
